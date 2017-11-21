@@ -8,12 +8,18 @@
 go get github.com/Mensu/cloudgo-io
 ```
 
-## Requirements
+## 任务要求
+
+### 基本要求
 
 - [x] 支持静态文件服务
 - [x] 支持简单 js 访问
 - [x] 提交表单，并输出一个表格
 - [x] 对 ``/unknown`` 给出开发中的提示，返回码 ``5xx``
+
+### 提高要求
+
+- [x] 分析阅读 gzip 过滤器的源码（就一个文件 126 行）
 - [x] 编写中间件，使得用户可以使用 ``gb2312`` 或 ``gbk`` 字符编码的浏览器提交表单、显示网页。（服务器模板统一用 utf-8）
 
 ## 完成任务的证据
@@ -21,7 +27,7 @@ go get github.com/Mensu/cloudgo-io
 工作路径要求是源代码路径
 
 ```
-$GOPATH/bin/cloudgo-io
+$GOPATH/src/github.com/Mensu/cloudgo-io
 ```
 
 ### 支持静态文件服务
@@ -34,7 +40,7 @@ curl -v http://localhost:8080/static/css/main.css
 
 ![curl 静态文件访问](assets/images/static-file-access-from-curl.png)
 
-也可以通过浏览器更加直观地验证。背景的浅绿色样式和登录按钮的手势说明成功访问静态 css 文件：
+也可以通过浏览器更加直观地验证。背景的浅绿色样式和登录按钮的手势说明成功访问静态 css 文件：
 
 ![浏览器静态文件访问](assets/images/static-file-access-from-browser.png)
 
@@ -151,13 +157,13 @@ curl -v http://localhost:8080/unknown
 
 ### 编写中间件，使得用户可以使用 ``gb2312`` 或 ``gbk`` 字符编码的浏览器提交表单、显示网页。（服务器模板统一用 utf-8）
 
-编写的中间件位于 [service/iconv.go](https://github.com/Mensu/cloudgo-io/blob/master/service/iconv.go)
+分析阅读 [negroni-gzip](https://github.com/phyber/negroni-gzip/blob/master/gzip/gzip.go) 后，参考其思路编写的中间件位于 [service/iconv.go](https://github.com/Mensu/cloudgo-io/blob/master/service/iconv.go)
 
 #### 思路
 
 利用接口的特性，编写代理结构，代理原来 ``req.Body`` 和 ``http.ResponseWriter`` 的 ``Read``、``Write``、``WriteHeader`` 方法。
 
-将代理结构实例作为接口的实体给 ``next`` 函数。这样，下游调用接口的方法时，调用的就是我们写的代理方法，也就是说被我们写的代理方法拦截。待我们稍作处理后（编码、解码、设置头部编码信息），才去调用原来的方法，从而达到该中间件的目的。
+将代理结构实例作为接口的实体给 ``next`` 函数。这样，下游调用接口的方法时，调用的就是我们写的代理方法，也就是说被我们写的代理方法拦截。待我们稍作处理后（编码、解码、设置头部编码信息），才去调用原来的方法，从而达到该中间件的目的。
 
 #### 测试命令
 
@@ -179,7 +185,7 @@ curl -v -H "Content-Type: application/x-www-form-urlencoded; charset=gb2312" -d 
 username=服务计算&password=编码是gb2312&token=ae2b0d3b-d4a5-4d15-b797-a557375cbec8
 ```
 
-#### 编码检测脚本 testEncoding
+#### 编码检测脚本 testEncoding
 
 ```js
 const jschardet = require('jschardet');
