@@ -168,7 +168,7 @@ curl -v http://localhost:8080/unknown
 #### 测试命令
 
 ```
-curl -v -H "Content-Type: application/x-www-form-urlencoded; charset=gb2312" -d @$GOPATH/src/github.com/Mensu/cloudgo-io/testdata/gb2312 http://localhost:8080/table
+curl -v -H "Content-Type: application/x-www-form-urlencoded; charset=gb2312" -d @$GOPATH/src/github.com/Mensu/cloudgo-io/testdata/gb2312 http://localhost:8080/table | testEncoding
 ```
 
 #### 测试数据
