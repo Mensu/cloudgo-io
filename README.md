@@ -157,13 +157,13 @@ curl -v http://localhost:8080/unknown
 
 ### 编写中间件，使得用户可以使用 ``gb2312`` 或 ``gbk`` 字符编码的浏览器提交表单、显示网页。（服务器模板统一用 utf-8）
 
-分析阅读 [negroni-gzip](https://github.com/phyber/negroni-gzip/blob/master/gzip/gzip.go) 后，参考其思路编写的中间件位于 [service/iconv.go](https://github.com/Mensu/cloudgo-io/blob/master/service/iconv.go)
+分析阅读 [negroni-gzip](https://github.com/phyber/negroni-gzip/blob/master/gzip/gzip.go) 后，参考其思路编写的中间件位于 [service/iconv.go](https://github.com/Mensu/cloudgo-io/blob/master/service/iconv.go)
 
 #### 思路
 
-利用接口的特性，编写代理结构，代理原来 ``req.Body`` 和 ``http.ResponseWriter`` 的 ``Read``、``Write``、``WriteHeader`` 方法。
+利用接口的特性，编写代理结构，代理原来 ``req.Body`` 和 ``http.ResponseWriter`` 的 ``Read``、``Write``、``WriteHeader`` 方法。
 
-将代理结构实例作为接口的实体给 ``next`` 函数。这样，下游调用接口的方法时，调用的就是我们写的代理方法，也就是说被我们写的代理方法拦截。待我们稍作处理后（编码、解码、设置头部编码信息），才去调用原来的方法，从而达到该中间件的目的。
+将代理结构实例作为接口的实体给 ``next`` 函数。这样，下游调用接口的方法时，调用的就是我们写的代理方法，也就是说被我们编写的代理方法拦截。待我们稍作处理后（编码、解码、设置头部编码信息），才去调用原来的方法，从而达到该中间件的目的。
 
 #### 测试命令
 
