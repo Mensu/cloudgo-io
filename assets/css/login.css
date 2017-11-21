@@ -1,0 +1,19 @@
+body {
+  background-color: #eff7de;
+}
+.request-table {
+  margin: 10px auto;
+  border-collapse: collapse;
+}
+.request-table thead tr {
+  text-align: left;
+}
+.request-table th, .request-table td {
+  border: 1px solid;
+  padding: 5px;
+}
+.back-btn {
+  display: block;
+  margin: auto;
+  cursor: pointer;
+}

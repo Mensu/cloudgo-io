@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/static/css/login.css"/>
+</head>
+<body>
+  <table class="request-table">
+    <caption>请求信息</caption>
+    <thead>
+      <tr>
+        <th>键</th>
+        <th>值</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range $key, $value := .Header }}
+        <tr>
+          <td>{{ $key }}</td>
+          <td>{{ join $value "," }}</td>
+        </tr>
+      {{ end }}
+      <tr>
+        <td>用户名</td>
+        <td>{{ .Username }}</td>
+      </tr>
+      <tr>
+        <td>密码</td>
+        <td>{{ .Password }}</td>
+      </tr>
+      <tr>
+        <td>Token</td>
+        <td>{{ .Token }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <input type="button" class="back-btn" value="返回" />
+  <script src="/static/js/login.js"></script>
+</body>
+</html>

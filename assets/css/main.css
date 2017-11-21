@@ -1,0 +1,6 @@
+body {
+  background-color: #eff7de;
+}
+input[type="submit"] {
+  cursor: pointer;
+}
