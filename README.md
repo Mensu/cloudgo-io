@@ -204,6 +204,8 @@ process.stdin.on('end', () => {
 vim testEncoding
 # 安装 jschardet
 npm i jschardet
+# 将当前路径加入工作路径
+PATH="$(PWD)":$PATH
 # 使用
 cat $GOPATH/src/github.com/Mensu/cloudgo-io/testdata/gb2312 | testEncoding
 # 输出 "/dev/stdin: GB2312"
