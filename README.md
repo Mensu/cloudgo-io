@@ -202,6 +202,8 @@ process.stdin.on('end', () => {
 ```sh
 # 编辑上述文件，命名为 testEncoding
 vim testEncoding
+# 给予执行权限
+chmod +x testEncoding
 # 安装 jschardet
 npm i jschardet
 # 将当前路径加入工作路径
