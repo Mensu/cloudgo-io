@@ -168,7 +168,7 @@ curl -v http://localhost:8080/unknown
 #### 测试命令
 
 ```
-curl -v -H "Content-Type: application/x-www-form-urlencoded; charset=gb2312" -d @$GOPATH/src/github.com/Mensu/cloudgo-io/testdata/gb2312 http://localhost:8080/table | testEncoding
+curl -v -H "Content-Type: application/x-www-form-urlencoded; charset=gb2312" -d @$GOPATH/src/github.com/Mensu/cloudgo-io/testdata/gb2312 http://localhost:8080/table | node testEncoding
 ```
 
 #### 测试数据
@@ -202,14 +202,10 @@ process.stdin.on('end', () => {
 ```sh
 # 编辑上述文件，命名为 testEncoding
 vim testEncoding
-# 给予执行权限
-chmod +x testEncoding
 # 安装 jschardet
 npm i jschardet
-# 将当前路径加入工作路径
-PATH="$(PWD)":$PATH
 # 使用
-cat $GOPATH/src/github.com/Mensu/cloudgo-io/testdata/gb2312 | testEncoding
+cat $GOPATH/src/github.com/Mensu/cloudgo-io/testdata/gb2312 | node testEncoding
 # 输出 "/dev/stdin: GB2312"
 ```
 
